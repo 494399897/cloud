@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @RestController
 @Slf4j
@@ -34,6 +35,18 @@ public class PaymentController {
     @GetMapping("/index")
     public String index(){
         return "payment success";
+    }
+
+
+
+    @GetMapping("/timeout")
+    public String timeout (){
+        try {
+            TimeUnit.SECONDS.sleep(5);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return "tomeout succee";
     }
 
 
