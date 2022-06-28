@@ -1,0 +1,60 @@
+server:
+    port: 80
+eureka:
+    instance:
+        instance-id: cloud-order-resilience4j-consumer80
+    client:
+        service-url:
+            defaultZone:
+                http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka
+spring:
+    application:
+        name: cloud-consumer-resilience4j-application
+
+          #超时降级
+          #resilience4j:
+          #timelimiter:
+          #instances:
+          #delay:
+        #timeout-duration: 2
+
+#重试机制
+#resilience4j:
+    #retry:
+            #instances:
+            #backendA:
+                #最大重试次数
+            # max-attempts: 3
+                #固定的重试间隔
+            #  wait-duration: 10s
+            #  enable-exponential-backoff: true
+        # exponential-backoff-multiplier: 2
+#熔断机制
+resilience4j:
+    circuitbreaker:
+        configs:
+          default:
+              failure-rate-threshold: 30
+              sliding-window-size: 10
+              minimum-number-of-calls: 5
+              sliding-window-type: time_based
+              permitted-number-of-calls-in-half-open-state: 3
+              automatic-transition-from-open-to-half-open-enabled: true
+              wait-duration-in-open-state: 2s
+              record-exceptions:
+                - java.lang.Exception
+    instances:
+        backendA:
+            baseConfig: default
+
+
+
+
+
+
+
+
+
+
+
+
