@@ -1,0 +1,43 @@
+server:
+    port:
+        9527
+spring:
+    cloud:
+        gateway:
+            globalcors:
+                cors-configurations:
+                    '[/**]':
+                        allowCredentials: true
+                        allowedOriginPatterns: "*"
+                        allowedMethods: "*"
+                        allowedHeaders: "*"
+                add-to-simple-url-handler-mapping: true
+            routes:
+              - id: cloud-auth
+                uri: lb://CLOUD-AUTH-USER6500
+                predicates:
+                  - Path=/user/**
+              - id: cloud-consumer-application
+                uri: http://localhost:80
+                predicates:
+                  - Path=/order/**
+              - id: payment_provider
+                uri: lb://CLOUD-PAYMENT-PROVIDER
+                predicates:
+                  - Path=/payment/**
+                  #- After=2030-02-15T14:54:23.317+08:00[Asia/Shanghai]
+                filters:
+                  - SetStatus=250
+                  - Log=true
+
+    application:
+        name: cloud-gateway
+
+eureka:
+    instance:
+        instance-id: gateway-9527
+    client:
+        service-url:
+            defaultZone:
+                http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka
+
