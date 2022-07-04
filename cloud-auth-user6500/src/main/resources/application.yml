@@ -1,0 +1,12 @@
+server:
+    port: 6500
+eureka:
+    instance:
+        instance-id: auth-user6500
+    client:
+        service-url:
+            defaultZone:
+                http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka
+spring:
+    application:
+        name: cloud-auth-user6500

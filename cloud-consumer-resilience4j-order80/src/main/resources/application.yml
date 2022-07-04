@@ -27,43 +27,54 @@ spring:
           # max-attempts: 3
           #固定的重试间隔
           #  wait-duration: 10s
-        #  enable-exponential-backoff: true
-        # exponential-backoff-multiplier: 2
-#熔断机制
+          #  enable-exponential-backoff: true
+          # exponential-backoff-multiplier: 2
+          #熔断机制
+          #resilience4j:
+          #circuitbreaker:
+          #configs:
+          #default:
+          #failure-rate-threshold: 30
+          #sliding-window-size: 10
+          #minimum-number-of-calls: 5
+          #sliding-window-type: time_based
+          #permitted-number-of-calls-in-half-open-state: 3
+          #automatic-transition-from-open-to-half-open-enabled: true
+          #wait-duration-in-open-state: 2s
+          #record-exceptions:
+          #- java.lang.Exception
+          #instances:
+          #异常比例熔断
+          #backendA:
+          # baseConfig: default
+          #backendB:
+          # failureRateThreshold: 50
+          # 慢调用时间阈值 高于这个阈值的
+          # slowCallDurationThreshold: 2s
+        # 慢调用百分比阈值，断路器吧调用事件大于slow
+    #  slowCallRateThreshold: 30
+    # slidingWindowSize: 10
+    # slidingWindowType: TIME_BASED
+    # minimumNumberOfCalls: 2
+    #  permittedNumberOfCallsInHalfOpenState: 2
+    #  waitDurationInOpenState: 2s
+    #  eventConsumerBufferSize: 10
+    #信号量隔离
 resilience4j:
-    circuitbreaker:
-        configs:
-            default:
-                failure-rate-threshold: 30
-                sliding-window-size: 10
-                minimum-number-of-calls: 5
-                sliding-window-type: time_based
-                permitted-number-of-calls-in-half-open-state: 3
-                automatic-transition-from-open-to-half-open-enabled: true
-                wait-duration-in-open-state: 2s
-                record-exceptions:
-                    - java.lang.Exception
-    instances:
-        #异常比例熔断
-        backendA:
-            baseConfig: default
-        backendB:
-            # 熔断器打开的失败阈值
-            failureRateThreshold: 50
-            # 慢调用时间阈值 高于这个阈值的
-            slowCallDurationThreshold: 2s
-            # 慢调用百分比阈值，断路器吧调用事件大于slow
-            slowCallRateThreshold: 30
-            slidingWindowSize: 10
-            slidingWindowType: TIME_BASED
-            minimumNumberOfCalls: 2
-            permittedNumberOfCallsInHalfOpenState: 2
-            waitDurationInOpenState: 2s
-            eventConsumerBufferSize: 10
-
-
-
-
+  bulkhead:
+      instances:
+          backendC:
+            max-concurrent-calls: 5
+            max-wait-duration: 20ms
+  thread-pool-bulkhead:
+   instances:
+         backendA:
+            # 最大线程池大小
+          maxThreadPoolSize: 4
+           # 核心线程池大小
+          coreThreadPoolSize: 2
+           # 队列容量
+          queueCapacity: 2
 
 
 
