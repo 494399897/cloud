@@ -19,6 +19,9 @@
         <module>cloud-provider-payment8002</module>
         <module>cloud-auth-user6500</module>
         <module>cloud-config-server3344</module>
+        <module>cloud-stream-rabbitmq-provider8001</module>
+        <module>cloud-stream-rabbitmq-consumer8002</module>
+        <module>cloud-stream-rabbitmq-consumer8003</module>
     </modules>
 
     <properties>

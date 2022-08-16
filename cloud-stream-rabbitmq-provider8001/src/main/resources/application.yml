@@ -1,0 +1,26 @@
+server:
+    port: 8001
+eureka:
+    instance:
+        instance-id: provider-payment8001
+    client:
+        service-url:
+            defaultZone:
+                http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka
+
+
+spring:
+    application:
+        name: cloud-provider
+    rabbitmq:
+        host: 190.160.9.100
+        port: 5672
+        username: itbaizhan
+        password: itbaizhan
+    cloud:
+        stream:
+            bindings:
+              myBroadcast-out-0:
+                  destination: my-broadcast-topic
+              myGroup-out-0:
+                  destination: my-group-topic
