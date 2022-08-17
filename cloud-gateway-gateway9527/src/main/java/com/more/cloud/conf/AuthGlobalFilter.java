@@ -13,7 +13,7 @@ import reactor.core.publisher.Mono;
 
 import java.util.List;
 
-@Component
+/*@Component*/
 public class AuthGlobalFilter implements GlobalFilter, Ordered {
 
 

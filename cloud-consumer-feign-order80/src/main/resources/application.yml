@@ -10,10 +10,15 @@ eureka:
 spring:
     application:
         name: cloud-consumer-feign-application
-
+    sleuth:
+        sampler:
+            probability: 1.0
+            rate: 100
 logging:
     level:
         com.more.cloud.service: debug
+        org.springframework.cloud.openfeign: debug
+        org.springframework.cloud.sleuth: debug
 
 feign:
     client:
@@ -21,4 +26,6 @@ feign:
           default:
               connect-timeout: 2000
               read-timeout: 2000
+
+
 

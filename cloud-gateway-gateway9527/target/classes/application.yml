@@ -28,10 +28,14 @@ spring:
                   #- After=2030-02-15T14:54:23.317+08:00[Asia/Shanghai]
                 filters:
                   - SetStatus=250
-                  - Log=true
+                 # - Log=true
 
     application:
         name: cloud-gateway
+    sleuth:
+      sampler:
+          probability: 1.0
+          rate: 100
 
 eureka:
     instance:
@@ -40,4 +44,7 @@ eureka:
         service-url:
             defaultZone:
                 http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka
-
+logging:
+    level:
+      org.springframework.cloud.openfeign: debug
+      org.springframework.cloud.sleuth: debug

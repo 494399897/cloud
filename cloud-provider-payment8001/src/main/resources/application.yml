@@ -10,3 +10,11 @@ eureka:
 spring:
     application:
         name: cloud-payment-provider
+    sleuth:
+        sampler:
+            probability: 1.0
+            rate: 100
+logging:
+    level:
+        org.springframework.cloud.openfeign: debug
+        org.springframework.cloud.sleuth: debug
